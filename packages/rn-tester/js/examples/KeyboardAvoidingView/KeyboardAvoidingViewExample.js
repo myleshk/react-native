@@ -10,6 +10,8 @@
 
 'use strict';
 
+import SafeAreaView from '../../../../../Libraries/Components/SafeAreaView/SafeAreaView';
+
 const React = require('react');
 const {
   Alert,
@@ -188,6 +190,34 @@ const KeyboardAvoidingContentContainerStyle = () => {
   );
 };
 
+const KeyboardAvoidingWithInput = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  return (
+    <View>
+      <Modal animationType="fade" visible={modalOpen}>
+        <SafeAreaView style={{flex: 1}}>
+          <KeyboardAvoidingView
+            behavior={'padding'}
+            style={styles.container}
+            contentContainerStyle={styles.contentContainer}>
+            <CloseButton behavior={'height'} setModalOpen={setModalOpen} />
+
+            <TextInput style={styles.textInput} autoFocus />
+            <Text style={{marginTop: 'auto'}}>
+              Dummy footer without padding
+            </Text>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </Modal>
+      <View>
+        <Pressable onPress={() => setModalOpen(true)}>
+          <Text>Open Example</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
@@ -262,6 +292,12 @@ exports.examples = [
     title: 'Keyboard Avoiding View with contentContainerStyle',
     render(): React.Node {
       return <KeyboardAvoidingContentContainerStyle />;
+    },
+  },
+  {
+    title: 'Keyboard Avoiding View with Input',
+    render(): React.Node {
+      return <KeyboardAvoidingWithInput />;
     },
   },
 ];
